@@ -1,6 +1,6 @@
 source "http://rubygems.org"
 
-gem 'nokogiri', '~> 1.3'
+gem 'nokogiri', '~> 1.3.0'
 
 group :development do
   gem "bundler", "~> 1.0.0"
