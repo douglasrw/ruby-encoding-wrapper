@@ -46,7 +46,7 @@ module EncodingWrapper
       #     m4a, thumbnail, image,
       #     mpeg2 (just experimental feature, please use with care, feedback is welcome),
       #     iphone_stream, ipad_stream, muxer
-    def request_encoding(action=nil, source=nil, notify_url=nil)
+    def request_encoding(action=nil, source=nil, notify_url=nil, destination=nil)
       # :size, :bitrate, :audio_bitrate, :audio_sample_rate,
       # :audio_channels_number, :framerate, :two_pass, :cbr,
       # :deinterlacing, :destination, :add_meta
@@ -58,6 +58,7 @@ module EncodingWrapper
           q.action  action
           q.source  source
           q.notify  notify_url
+          q.destination destination
           q.format  output_format
         }
       end.to_xml
