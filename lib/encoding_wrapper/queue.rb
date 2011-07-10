@@ -36,6 +36,7 @@ module EncodingWrapper
       @user_id = user_id
       @user_key = user_key
       @url = url || 'http://manage.encoding.com/'
+      @log = Logger.new(STDOUT)
     end
 
 
@@ -57,12 +58,15 @@ module EncodingWrapper
           q.action  action
           q.source  source
           q.notify  notify_url
-          q.format  { |f| yield f }
+          q.format  output_format
         }
       end.to_xml
 
       response = request_send(xml)
 
+      @log.info "response.class = #{response.class}\n"
+      @log.info response
+      
       if response.css('errors error').length != 0
         message = response.css('errors error').text
       else
@@ -222,17 +226,21 @@ module EncodingWrapper
       output = {:errors => [], :status => false, :xml => '', :message => ''}
       output[:xml] = Nokogiri::XML(response.body)
 
-      if response.css('errors error').length != 0
-        response.css('errors error').each { |error| output[:errors] << error.text }
+      if output[:xml].try(:css) && output[:xml].css('errors error').length != 0
+        output[:xml].css('errors error').each { |error| output[:errors] << error.text }
       else
         output[:status] = true
       end
 
-      if output[:xml].css('response message').length == 1
+      if output[:xml].try(:css) && output[:xml].css('response message').length == 1
         output[:message] = output[:xml].css('response message').text
       end
 
       output
+    end
+
+    def output_format
+      block_given? ? yield : 'flv'
     end
 
   end
