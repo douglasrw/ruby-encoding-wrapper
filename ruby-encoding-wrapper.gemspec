@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{ruby-encoding-wrapper}
-  s.version = "0.1.0"
+  s.version = "0.1.1"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Mikhailov Anatoly", "Tsech Edward", "Anton Zaytsev"]
-  s.date = %q{2011-07-03}
+  s.date = %q{2011-07-16}
   s.description = %q{Simple wrapper for encoding.com API based on ruby.}
   s.email = %q{info@antonzaytsev.com}
   s.extra_rdoc_files = [
