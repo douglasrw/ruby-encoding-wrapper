@@ -34,7 +34,7 @@ Gem::Specification.new do |s|
   s.homepage = %q{https://github.com/mikhailov/ruby-encoding-wrapper}
   s.require_paths = ["lib"]
   s.rubygems_version = %q{1.6.2}
-  s.summary = %q{Simple wrapper for encoding.com API based on ruby.}
+  s.summary = nil
 
   if s.respond_to? :specification_version then
     s.specification_version = 3
