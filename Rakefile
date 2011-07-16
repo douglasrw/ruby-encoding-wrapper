@@ -31,6 +31,7 @@ Jeweler::Tasks.new do |gem|
   gem.email = "info@antonzaytsev.com"
   gem.homepage = "https://github.com/mikhailov/ruby-encoding-wrapper"
   gem.authors = ["Mikhailov Anatoly", "Tsech Edward", "Anton Zaytsev"]
+  gem.summary = "Simple wrapper for encoding.com API based on ruby."
   # dependencies defined in Gemfile
 end
 Jeweler::RubygemsDotOrgTasks.new
