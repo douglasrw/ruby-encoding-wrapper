@@ -36,6 +36,7 @@ module EncodingWrapper
       @user_id = user_id
       @user_key = user_key
       @url = url || 'http://manage.encoding.com/'
+      @log = Logger.new(STDOUT)
     end
 
 
@@ -63,6 +64,9 @@ module EncodingWrapper
 
       response = request_send(xml)
 
+      @log.info "response.class = #{response.class}\n"
+      @log.info response
+      
       if response.css('errors error').length != 0
         message = response.css('errors error').text
       else
@@ -128,23 +132,31 @@ module EncodingWrapper
       #     m4a, thumbnail, image,
       #     mpeg2 (just experimental feature, please use with care, feedback is welcome),
       #     iphone_stream, ipad_stream, muxer
-    def add_media(source=nil, notify_url=nil)
+    def add_media(source=nil, notify_url=nil, destination=nil, output=nil)
       # :size, :bitrate, :audio_bitrate, :audio_sample_rate,
       # :audio_channels_number, :framerate, :two_pass, :cbr,
       # :deinterlacing, :destination, :add_meta
 
       xml = Nokogiri::XML::Builder.new do |q|
         q.query {
-          q.userid  @user_id
-          q.userkey @user_key
-          q.action  EncodingWrapper::Actions::ADD_MEDIA
-          q.source  source
-          q.notify  notify_url
-          q.format  { |f| yield f }
+          q.userid      @user_id
+          q.userkey     @user_key
+          q.action      EncodingWrapper::Actions::ADD_MEDIA
+          q.source      source
+          q.notify      notify_url
+          q.destination destination
+          q.format {
+            q.output      output
+          }
         }
       end.to_xml
 
+      # @log.info xml
+      # @log.info "\n\n"
+      
       response = request_send(xml)
+
+      # @log.info response
 
       response[:media_id] = false
       
@@ -222,13 +234,13 @@ module EncodingWrapper
       output = {:errors => [], :status => false, :xml => '', :message => ''}
       output[:xml] = Nokogiri::XML(response.body)
 
-      if response.css('errors error').length != 0
-        response.css('errors error').each { |error| output[:errors] << error.text }
+      if output[:xml].try(:css) && output[:xml].css('errors error').length != 0
+        output[:xml].css('errors error').each { |error| output[:errors] << error.text }
       else
         output[:status] = true
       end
 
-      if output[:xml].css('response message').length == 1
+      if output[:xml].try(:css) && output[:xml].css('response message').length == 1
         output[:message] = output[:xml].css('response message').text
       end
 
