@@ -5,7 +5,7 @@
 
 Gem::Specification.new do |s|
   s.name = %q{ruby-encoding-wrapper}
-  s.version = "0.1.1"
+  s.version = "0.1.3"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Mikhailov Anatoly", "Tsech Edward", "Anton Zaytsev"]
@@ -34,7 +34,7 @@ Gem::Specification.new do |s|
   s.homepage = %q{https://github.com/mikhailov/ruby-encoding-wrapper}
   s.require_paths = ["lib"]
   s.rubygems_version = %q{1.6.2}
-  s.summary = nil
+  s.summary = %q{Simple wrapper for encoding.com API based on ruby.}
 
   if s.respond_to? :specification_version then
     s.specification_version = 3
