@@ -126,16 +126,11 @@ module EncodingWrapper
     end
 
 
-      # format fields:
-      #   output (required):
-      #     flv, fl9, wmv, 3gp, mp4, m4v, ipod, iphone, ipad, android, ogg, webm, appletv, psp, zune, mp3, wma,
-      #     m4a, thumbnail, image,
-      #     mpeg2 (just experimental feature, please use with care, feedback is welcome),
-      #     iphone_stream, ipad_stream, muxer
+    # At least 1 format required, e.g.
+    # {:output => 'mp4', :size => '240x180' }
+    # where 'format' is a hash of options
+    # see http://www.encoding.com/api for format options
     def add_media(source=nil, notify_url=nil, formats=nil)
-      # :size, :bitrate, :audio_bitrate, :audio_sample_rate,
-      # :audio_channels_number, :framerate, :two_pass, :cbr,
-      # :deinterlacing, :destination, :add_meta
 
       xml = Nokogiri::XML::Builder.new do |q|
         q.query {
@@ -144,7 +139,7 @@ module EncodingWrapper
           q.action      EncodingWrapper::Actions::ADD_MEDIA
           q.source      source
           q.notify      notify_url
-          formats.each_value {|format|
+          formats.each {|format|
             q.format {
               format.each {|option, value|
                 q.send(option, value)
