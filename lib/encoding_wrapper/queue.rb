@@ -132,7 +132,7 @@ module EncodingWrapper
       #     m4a, thumbnail, image,
       #     mpeg2 (just experimental feature, please use with care, feedback is welcome),
       #     iphone_stream, ipad_stream, muxer
-    def add_media(source=nil, notify_url=nil, destination=nil, formats)
+    def add_media(source=nil, notify_url=nil, formats=nil)
       # :size, :bitrate, :audio_bitrate, :audio_sample_rate,
       # :audio_channels_number, :framerate, :two_pass, :cbr,
       # :deinterlacing, :destination, :add_meta
@@ -144,10 +144,10 @@ module EncodingWrapper
           q.action      EncodingWrapper::Actions::ADD_MEDIA
           q.source      source
           q.notify      notify_url
-          formats.each {|format|
+          formats.each_value {|format|
             q.format {
               format.each {|option, value|
-                q.option value
+                q.send(option, value)
               }
             }
           }
