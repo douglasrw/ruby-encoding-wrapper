@@ -1,3 +1,4 @@
+require 'logger'
 require 'rubygems'
 require 'uri'
 require 'net/http'
@@ -130,7 +131,7 @@ module EncodingWrapper
     # {:output => 'mp4', :size => '240x180' }
     # where 'format' is a hash of options
     # see http://www.encoding.com/api for format options
-    def add_media(howdy=nil, source=nil, notify_url=nil, formats=nil)
+    def add_media(source=nil, notify_url=nil, formats=nil)
 
       xml = Nokogiri::XML::Builder.new do |q|
         q.query {
@@ -148,6 +149,7 @@ module EncodingWrapper
           }
         }
       end.to_xml
+      p y xml
 
       # @log.info xml
       # @log.info "\n\n"
