@@ -5,7 +5,7 @@
 
 Gem::Specification.new do |s|
   s.name = %q{ruby-encoding-wrapper}
-  s.version = "0.1.4"
+  s.version = "0.1.5"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Mikhailov Anatoly", "Tsech Edward", "Anton Zaytsev"]
@@ -27,8 +27,7 @@ Gem::Specification.new do |s|
     "lib/encoding_wrapper.rb",
     "lib/encoding_wrapper/queue.rb",
     "ruby-encoding-wrapper.gemspec",
-    "test/test.rb",
-    "test/test_list.rb",
+    "test/queue_test.rb",
     "uninstall.rb"
   ]
   s.homepage = %q{https://github.com/mikhailov/ruby-encoding-wrapper}
